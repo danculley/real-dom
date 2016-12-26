@@ -23,17 +23,17 @@ Real-DOM exposes only two functions: `component` and `h`. `component` takes, at 
 ### `component(initialState, view, [reducer, registerSubscriptions])`
 
 #### Return value
-A function `DOMElement -> void`. When invoked, the function mounts the application as a child of that root node. The root node should not have any other children: they will be removed from the tree on each update of the view.
+A function `HTMLElement -> void`. When invoked, the function mounts the application as a child of that root node. The root node should not have any other children: they will be removed from the tree on each update of the view.
 
 #### Arguments
 1. `initialState`: the application's initial state. It accepts any value: object, array, primitive.
-2. `view`: a function `(state, dispatch) -> DOMElement`. This function will be invoked with `initialState` when the application is mounted, and then again each time the dispatch function is called. The result will be appended as a child to the root node (see the return value above). The `h` function below is provided to make composing this function easier.
+2. `view`: a function `(state, dispatch) -> HTMLElement`. This function will be invoked with `initialState` when the application is mounted, and then again each time the dispatch function is called. The result will be appended as a child to the root node (see the return value above). The `h` function below is provided to make composing this function easier.
 3. `reducer`: a function `(state, action) -> *`. The value returned from the function becomes the application's new state. It is good practice for this to be a pure function. The default is `(state, action) => action`. That is, it sets the application's new state to whatever value is passed to the `dispatch` function of the view.
 4. `registerSubscriptions`: a function `dispatch -> void`. The function will be invoked immediately after the application is mounted. Use this function to register callbacks to external services, so that they can call the dispatch function, e.g., a Web Socket, firebase, meteor.
 
 ### `h(tag|function, [attrs, ...children])`
 #### Return value
-A `DOMElement`.
+An `HTMLElement`.
 
 #### `tag|function`
 Either the tag name of the html element or a function. If it is invoked with a function, that function will be called with the value of the `attrs` argument, similar to a stateless functional component in React.
