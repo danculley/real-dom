@@ -11,17 +11,11 @@ Before replacing the view, Real-DOM stores a reference to the document's active 
 #### How does it perform in benchmarks?
 Probably not very well. If you have a very complex DOM tree or redraw your view very frequently, it's not the right approach for you.
 
-#### Do you offer a CDN?
-No. It's less than 1K. Just copy and paste it.
-
 #### Is this compatiable with JSX?
-Yes, if you configure Babel to use its `h` function instead of `React.createElement`. Keep in mind that Real-DOM does not have a simulated event system like React, and it doesn't accept functions or components as arguments. See the API documentation below.
+Yes, if you [configure Babel](https://babeljs.io/docs/plugins/transform-react-jsx/) to use its `h` function instead of `React.createElement`. Keep in mind that Real-DOM does not have a simulated event system like React, and it doesn't accept other full components as arguments. It does, though, accept functions. See the API documentation below. It has not been thoroughly tested.
 
 #### Can this be rendered on the server side?
 Theoretically, but it has not been thoroughly tested. You'll need a synthetic document object, such as [jsdom](https://github.com/tmpvar/jsdom).
-
-#### You don't use semicolons in your source code. I hate you.
-OK.
 
 ## API documentation
 Real-DOM exposes only two functions: `component` and `h`. `component` takes, at minimum, an initial state and a function that renders your view. It can also take a Redux-style reducer and a factory function for registering callbacks to external events, such as a Web Socket. `h` is named in honor of hyperscript and follows the same syntax with some simplifications.
@@ -52,4 +46,4 @@ If a function was passed to `tag`, then that function will be executed with this
 The default is an empty object.
 
 #### `...children`
-Any remaining parameters are handled as children to the node. Strings are wrapped with a call to `document.createTextNode`. Arrays are flattened.
+Any remaining parameters are handled as children to the node. Strings are wrapped with a call to `document.createTextNode`. Arrays are flattened and their elements handled as other parameters.
