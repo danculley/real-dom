@@ -1,6 +1,6 @@
 ## real-dom: a < 1K non-virtual DOM framework for simple apps
 
-Virtual DOM frameworks are all the rage. But the real DOM is faster than you might think. Each time you call its dispatch function, Real-DOM simply replaces the entire DOM tree under its root node with your new view. This makes it simple and uncluttered. It weighs in at only 32 lines of code before minifying, and less than 1K after. It has built-in support for Redux-style actions and reducers, but also supports simpler models too.
+Virtual DOM frameworks are all the rage. But the real DOM is faster than you might think. Each time you call its dispatch function, Real-DOM simply replaces the entire DOM tree under its root node with your new view. This makes it simple and uncluttered. It weighs in at only 32 lines of code before minifying, and less than 1K after. It has built-in support for Redux-style actions and reducers, but also supports simpler models too. It is in ES2015 module format.
 
 #### Without using virtual DOM, won't my app be slow?
 Apps with thousands of DOM nodes or that frequently redraw their views may benefit significantly from avoiding DOM mutation. But most applications aren't that complex and do not update very frequently. If you are developing a game or the next Facebook, then you should probably consider using React or one of the many virtual DOM alternatives. If you just want typeahead results or simple todos, you won't really notice it.
@@ -28,7 +28,7 @@ A function `HTMLElement -> void`. When invoked, the function mounts the applicat
 #### Arguments
 1. `initialState`: the application's initial state. It accepts any value: object, array, primitive.
 2. `view`: a function `(state, dispatch) -> HTMLElement`. This function will be invoked with `initialState` when the application is mounted, and then again each time the dispatch function is called. The result will be appended as a child to the root node (see the return value above). The `h` function below is provided to make composing this function easier.
-3. `reducer`: a function `(state, action) -> *`. The value returned from the function becomes the application's new state. It is good practice for this to be a pure function. The default is `(state, action) => action`. That is, it sets the application's new state to whatever value is passed to the `dispatch` function of the view.
+3. `reducer`: a function `(state, action) -> *`. The value returned from the function becomes the application's new state. It is good practice for this to be a pure function. If the action it receives is a `Promise`, it will execute after the `Promise` resolves.  The default is `(state, action) => action`. That is, it sets the application's new state to whatever value is passed to the `dispatch` function of the view.
 4. `registerSubscriptions`: a function `dispatch -> void`. The function will be invoked immediately after the application is mounted. Use this function to register callbacks to external services, so that they can call the dispatch function, e.g., a Web Socket, firebase, meteor.
 
 ### `h(tag|function, [attrs, ...children])`
