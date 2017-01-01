@@ -1,6 +1,6 @@
 ## real-dom: a < 1K non-virtual DOM framework for simple apps
 
-Virtual DOM frameworks are all the rage. But the real DOM is faster than you might think. Each time you call its dispatch function, Real-DOM simply replaces the entire DOM tree under its root node with your new view. This makes it simple and uncluttered. It weighs in at only 32 lines of code before minifying, and less than 1K after. It has built-in support for Redux-style actions and reducers, but also supports simpler models too. It is in ES2015 module format.
+Virtual DOM frameworks are all the rage. But the real DOM is faster than you might think. Each time you call its dispatch function, Real-DOM simply replaces the entire DOM tree under its root node with your new view. This makes it simple and uncluttered. It's less than 50 lines of code before minifying, and less than 1K after. It has built-in support for Redux-style actions and reducers, but also can be used more simply, by passing new state directly to the `dispatch` function it passes to the view. It is in ES2015 module format.
 
 #### Without using virtual DOM, won't my app be slow?
 Apps with thousands of DOM nodes or that frequently redraw their views may benefit significantly from avoiding DOM mutation. But most applications aren't that complex and do not update very frequently. If you are developing a game or the next Facebook, then you should probably consider using React or one of the many virtual DOM alternatives. If you just want typeahead results or simple todos, you won't really notice it.
@@ -39,11 +39,9 @@ An `HTMLElement`.
 Either the tag name of the html element or a function. If it is invoked with a function, that function will be called with the value of the `attrs` argument, similar to a stateless functional component in React.
 
 #### `attrs`
-An object containing the attributes to be applied to the html element. Use the JavaScript names for accessing attributes; for example, `className` instead of `class`. It supports registering events by passing functions for `onevent` attributes. The only special handling is for the style attribute, which can take either a string or an object with individual CSS properties.
+An object containing the attributes to be applied to the html element. Use the JavaScript names for accessing attributes; for example, `className` instead of `class`. It supports registering events by passing functions for `onevent` attributes. The only special handling is for the style attribute, which can take either a string or an object with individual CSS properties. It gracefully handles `null` or `undefined`.
 
-If a function was passed to `tag`, then that function will be executed with this parameter, without any parsing.
-
-The default is an empty object.
+If a function was passed to `tag`, then that function will be executed with this parameter, without any parsing. (That includes `null` and `undefined`, while will be passed directly.)
 
 #### `...children`
 Any remaining parameters are handled as children to the node. Strings are wrapped with a call to `document.createTextNode`. Arrays are flattened and their elements handled as other parameters.
