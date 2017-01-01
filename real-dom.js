@@ -14,7 +14,7 @@ const render = root => tree => {
   returnFocusToElement(focused)
 }
 
-export const h = (tagName, props = {}, ...children) => {
+export const h = (tagName, props, ...children) => {
   if (typeof tagName === 'function')
     return tagName(props)
   const node = Object.assign(document.createElement(tagName), props)
