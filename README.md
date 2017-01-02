@@ -11,11 +11,11 @@ Before replacing the view, Real-DOM stores a reference to the document's active 
 #### How does it perform in benchmarks?
 Probably not very well. If you have a very complex DOM tree or redraw your view very frequently, it's not the right approach for you.
 
-#### All of this module and ES2015 stuff is confusing. Is there a plunker I can start from?
+#### Is there a plunker I can start from?
 Yep. Here's the [starter kit](https://plnkr.co/edit/yZv9QCX5GDkhb1fMDbQC). Real-DOM registers itself on the global variable `realDOM`.
 
 #### Is this compatiable with JSX?
-Yes, if you [configure Babel](https://babeljs.io/docs/plugins/transform-react-jsx/) to use its `h` function instead of `React.createElement`. Keep in mind that Real-DOM does not have a simulated event system like React, and it doesn't accept other full components as arguments. It does, though, accept functions. See the API documentation below. It has not been thoroughly tested.
+Yes, if you [configure Babel](https://babeljs.io/docs/plugins/transform-react-jsx/) to use its `h` function instead of `React.createElement`. Keep in mind that Real-DOM does not have a simulated event system like React, and it doesn't accept other full React-style components as arguments. It does, though, accept functions (see the API documentation below). Due to how JSX is translated into function calls, the name of the function has to be capitalized. Here's an [example](https://plnkr.co/edit/CEktyrUwy86s3HTEJJHU).
 
 #### Can this be rendered on the server side?
 Theoretically, but it has not been thoroughly tested. You'll need a synthetic document object, such as [jsdom](https://github.com/tmpvar/jsdom).
