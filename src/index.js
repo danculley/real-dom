@@ -1,13 +1,9 @@
-const maybe = (...funcs) => funcs.reduce((accumulator, current) => arg => {
-  const result = accumulator(arg);
-  return (result === null || result === undefined) ? null : current(result);
-}, arg => arg);
-const removeAllChildren = element => (Array.prototype.forEach.call(element.children, child => element.removeChild(child)), element);
-const returnFocusToElement = maybe(x => x.id, x => document.getElementById(x), x => x.focus());
-const render = root => tree => {  
+const r = root => tree => {  
   const focused = document.activeElement;
-  removeAllChildren(root).appendChild(tree);
-  returnFocusToElement(focused);
+  Array.prototype.forEach.call(root.children, root.removeChild.bind(root))
+  root.appendChild(tree);
+  const newFocused = document.getElementById((focused||{id:''}).id)
+  if (newFocused) newFocused.focus()
 };
 
 export const h = (tagName, props, ...children) => {
@@ -17,14 +13,14 @@ export const h = (tagName, props, ...children) => {
   Object.assign(node.style, (props || {}).style);
   children
     .reduce((acc, cur) => acc.concat(cur), [])
-    .forEach(child => node.appendChild((typeof child !== 'object') ? document.createTextNode(child) : child));
+    .forEach(child => node.appendChild((typeof child === 'object') ? child : document.createTextNode(child)));
   
   return node;
 };
 
 export const component = (initState, view, reducer = (state, action) => action, registerSubscriptions = dispatch => null) => root => {
   let state = initState;
-  const renderer = render(root);
+  const renderer = r(root);
   const dispatch = action => Promise.resolve(action).then(action => {
     state = reducer(state, action);
     renderer(view(state, dispatch));
