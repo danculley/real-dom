@@ -1,6 +1,6 @@
 {
   "name": "real-dom",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tiny non-virtual DOM framework for simple apps",
   "main": "dist/real-dom.js",
   "scripts": {
