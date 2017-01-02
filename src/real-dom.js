@@ -14,7 +14,7 @@ export const component = (initState, view, reducer = (state, action) => action, 
   let state = initState;
   const renderer = tree => {  
     const focused = document.activeElement;
-    Array.prototype.forEach.call(root.children, root.removeChild.bind(root))
+    while (root.firstChild) root.removeChild(root.firstChild);
     root.appendChild(tree);
     const newFocused = document.getElementById((focused||{id:''}).id)
     if (newFocused) newFocused.focus()
