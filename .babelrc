@@ -1,4 +1,14 @@
 {
   "presets": ["babili"],
-  "plugins": ["transform-es2015-arrow-functions", "transform-es2015-block-scoping", "transform-es2015-modules-commonjs", "transform-es2015-parameters"]
+  "plugins": [
+    "transform-es2015-arrow-functions",
+    "transform-es2015-block-scoping",
+    "transform-es2015-parameters",
+    ["transform-es2015-modules-umd", {
+      "globals": {
+        "real-dom": "realDOM"
+      },
+      "exactGlobals": true
+    }]
+   ]
 }

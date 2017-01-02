@@ -2,7 +2,7 @@
   "name": "real-dom",
   "version": "0.0.0",
   "description": "A tiny non-virtual DOM framework for simple apps",
-  "main": "dist/index.js",
+  "main": "dist/real-dom.js",
   "scripts": {
     "build": "babel src -d dist"
   },
