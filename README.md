@@ -1,6 +1,6 @@
-## real-dom: a < 1K non-virtual DOM framework for simple apps
+## real-dom: a ~1K non-virtual DOM framework for simple apps
 
-Virtual DOM frameworks are all the rage. But the real DOM is faster than you might think. Each time you call its dispatch function, Real-DOM simply replaces the entire DOM tree under its root node with your new view. This makes it simple and uncluttered. It's less than 50 lines of code before minifying, and less than 1K after. It has built-in support for Redux-style actions and reducers, but also can be used more simply, by passing new state directly to the `dispatch` function it passes to the view. It is in ES2015 module format.
+Virtual DOM frameworks are all the rage. But the real DOM is faster than you might think. Each time you call its dispatch function, Real-DOM simply replaces the entire DOM tree under its root node with your new view. This makes it simple and uncluttered. It's less than 50 lines of code before minifying, and roughly 1K after. It has built-in support for Redux-style actions and reducers, but also can be used more simply, by passing new state directly to the `dispatch` function it passes to the view. The version in `src` is in ES2015 module format and the version in `dist` is in UMD module format.
 
 #### Without using virtual DOM, won't my app be slow?
 Apps with thousands of DOM nodes or that frequently redraw their views may benefit significantly from avoiding DOM mutation. But most applications aren't that complex and do not update very frequently. If you are developing a game or the next Facebook, then you should probably consider using React or one of the many virtual DOM alternatives. If you just want typeahead results or simple todos, you won't really notice it.
@@ -10,6 +10,9 @@ Before replacing the view, Real-DOM stores a reference to the document's active 
 
 #### How does it perform in benchmarks?
 Probably not very well. If you have a very complex DOM tree or redraw your view very frequently, it's not the right approach for you.
+
+#### All of this module and ES2015 stuff is confusing. Is there a plunker I can start from?
+Yep. Here's the [starter kit](https://plnkr.co/edit/yZv9QCX5GDkhb1fMDbQC). Real-DOM registers itself on the global variable `realDOM`.
 
 #### Is this compatiable with JSX?
 Yes, if you [configure Babel](https://babeljs.io/docs/plugins/transform-react-jsx/) to use its `h` function instead of `React.createElement`. Keep in mind that Real-DOM does not have a simulated event system like React, and it doesn't accept other full components as arguments. It does, though, accept functions. See the API documentation below. It has not been thoroughly tested.
