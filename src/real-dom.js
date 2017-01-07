@@ -14,15 +14,13 @@ export const component = (initState, view, reducer = (state, action) => action, 
   let state = initState;
   const renderer = tree => {  
     const focused = document.activeElement;
-    const selectionStart = focused.selectionStart
-    const selectionEnd = focused.selectionEnd
+    const {selectionStart, selectionEnd} = focused
     while (root.firstChild) root.removeChild(root.firstChild);
     root.appendChild(tree);
     const newFocused = document.getElementById((focused||{id:''}).id)
     if (newFocused) {
       newFocused.focus()
-      newFocused.selectionStart = selectionStart
-      newFocused.selectionEnd = selectionEnd
+      Object.assign(newFocused, {selectionStart, selectionEnd})
     }
   };
   const dispatch = action => Promise.resolve(action).then(action => {
