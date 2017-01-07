@@ -6,7 +6,7 @@ Virtual DOM frameworks are all the rage. But the real DOM is faster than you mig
 Apps with thousands of DOM nodes or that frequently redraw their views may benefit significantly from avoiding DOM mutation. But most applications aren't that complex and do not update very frequently. If you are developing a game or the next Facebook, then you should probably consider using React or one of the many virtual DOM alternatives. If you just want typeahead results or simple todos, you won't really notice it.
 
 #### If Real-DOM replaces the DOM tree on each update, how does it preserve focus?
-Before replacing the view, Real-DOM stores a reference to the document's active element. After replacing the view, Real-DOM will return focus to the element with the same `id` attribute. In modern browsers, this happens fast enough that it does not interrupt typing in a non-debounced [controlled input](https://facebook.github.io/react/docs/forms.html#controlled-components).
+Before replacing the view, Real-DOM stores a reference to the document's active element. After replacing the view, Real-DOM will return focus to the element with the same `id` attribute. It also preserves caret position, selection, and scroll position for any element with an `id` attribute. In modern browsers, this happens fast enough that it does not interrupt typing in a non-debounced [controlled input](https://facebook.github.io/react/docs/forms.html#controlled-components).
 
 #### How does it perform in benchmarks?
 Probably not very well. If you have a very complex DOM tree or redraw your view very frequently, it's not the right approach for you.
@@ -44,7 +44,7 @@ Either the tag name of the html element or a function. If it is invoked with a f
 #### `attrs`
 An object containing the attributes to be applied to the html element. Use the JavaScript names for accessing attributes; for example, `className` instead of `class`. It supports registering events by passing functions for `onevent` attributes. The only special handling is for the style attribute, which can take either a string or an object with individual CSS properties. It gracefully handles `null` or `undefined`.
 
-If a function was passed to `tag`, then that function will be executed with this parameter, without any parsing. (That includes `null` and `undefined`, while will be passed directly.)
+If a function was passed to `tag`, then that function will be executed with this parameter, without any parsing. (That includes `null` and `undefined`, which will be passed directly.)
 
 #### `...children`
 Any remaining parameters are handled as children to the node. Strings are wrapped with a call to `document.createTextNode`. Arrays are flattened and their elements handled as other parameters.
